@@ -9,6 +9,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,10 +26,10 @@ class DemoApplicationTests {
 	@Order(1)
 	public void testCreate(){
 		Product product = new Product();
-		product.setId(1);
-		product.setName("bnokia ph");
-		product.setDesc("awesosssme");
-		product.setPrice(500d);
+		product.setId(4);
+		product.setName("bhelllli");
+		product.setDesc("asmee");
+		product.setPrice(100d);
 		productRepository.save(product);
 	}
 
@@ -44,7 +45,7 @@ class DemoApplicationTests {
 	@Order(3)
 	public void testUpdate(){
 		Product product = productRepository.findById(1).get();
-		product.setPrice(1200d);
+		product.setPrice(11100d);
 		productRepository.save(product);
 	}
 
@@ -55,6 +56,18 @@ class DemoApplicationTests {
 			System.out.println("deleting a product");
 			productRepository.deleteById(1);
 		}
+	}
+
+	@Test
+	public void testFindByName(){
+		List<Product> products = productRepository.findByName("android ph");
+		products.forEach(p -> System.out.println(p.getDesc()));
+	}
+
+	@Test
+	public void testFindByPriceGreaterThan(){
+		List<Product> products = productRepository.findByPriceGreaterThan(200d);
+		products.forEach(p -> System.out.println(p.getDesc()));
 	}
 
 }
